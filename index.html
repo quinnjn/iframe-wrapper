@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sheet Viewer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: #f5f3ee;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #1a1a2e;
+      color: #e8e4d9;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    header svg {
+      width: 20px;
+      height: 20px;
+      fill: #7eb87e;
+      flex-shrink: 0;
+    }
+
+    header span {
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.75;
+    }
+
+    .frame-wrap {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Sheets icon -->
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3h5v2h-5V6zm0 4h5v2h-5v-2zm0 4h5v2h-5v-2zM7 6h3v2H7V6zm0 4h3v2H7v-2zm0 4h3v2H7v-2z"/>
+    </svg>
+    <span>Spreadsheet</span>
+  </header>
+
+  <div class="frame-wrap">
+    <iframe id="sheet" title="Google Sheet"></iframe>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const gid = params.get('gid');
+    const base = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRsk_jZ5bdQ-PhIj7i42yFffSWwd-hnvcPFyztEwryAyH-QT0OyuXOvWCcKMkIDYw/pubhtml?widget=true&headers=false";
+    document.getElementById('sheet').src = gid ? base + '&gid=' + encodeURIComponent(gid) : base;
+  </script>
+  </div>
+</body>
+</html>
